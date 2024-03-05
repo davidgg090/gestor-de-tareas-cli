@@ -1,16 +1,16 @@
+import os
 from sqlalchemy import Column, Integer, String, Date, CheckConstraint, create_engine, Enum
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import validates
+from dotenv import load_dotenv
 
+load_dotenv()
 
 def create_engine():
-    """
-    Creates and returns a SQLAlchemy engine for the tasks database.
-
-    Returns:
-        sqlalchemy.engine.Engine: The SQLAlchemy engine object.
-    """
-    return create_engine("sqlite:///tasks.db")
+    if os.getenv("DATABASE_URL"):
+        return create_engine(os.getenv("DATABASE_URL"))
+    else:
+        raise ValueError("DATABASE_URL environment variable is not set")
 
 
 engine = create_engine()
