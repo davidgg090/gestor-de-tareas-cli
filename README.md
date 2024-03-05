@@ -17,7 +17,7 @@ Para instalar este CLI, necesitarás tener Python instalado en tu sistema. Este 
 
 1. Clona el repositorio a tu máquina local:
     ```bash
-    git clone 
+    git clone https://github.com/davidgg090/gestor-de-tareas-cli.git
     cd gestor-de-tareas-cli
     ```
 
