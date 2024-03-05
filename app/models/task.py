@@ -1,20 +1,7 @@
-import os
-from sqlalchemy import Column, Integer, String, Date, CheckConstraint, create_engine, Enum
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, Integer, String, Date, Enum
 from sqlalchemy.orm import validates
-from dotenv import load_dotenv
 
-load_dotenv()
-
-def create_engine():
-    if os.getenv("DATABASE_URL"):
-        return create_engine(os.getenv("DATABASE_URL"))
-    else:
-        raise ValueError("DATABASE_URL environment variable is not set")
-
-
-engine = create_engine()
-Base = declarative_base()
+from app.db.config import Base, engine
 
 
 class TaskStatus(Enum):
