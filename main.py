@@ -5,7 +5,9 @@ from src.commands.edit import edit_task
 from src.commands.list import list_tasks
 
 
-@click.group()
+@click.group(
+    help="A CLI for managing tasks.",
+)
 def cli():
     pass
 
