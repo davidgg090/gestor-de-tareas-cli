@@ -7,6 +7,17 @@ from src.utils.notifications import send_notification
 @click.command()
 @click.argument('task_id', type=int)
 def delete_task(task_id):
+    """Deletes a task with the specified task ID.
+
+    Args:
+        task_id (int): The ID of the task to delete.
+
+    Raises:
+        Exception: If an error occurs while deleting the task.
+
+    Returns:
+        None
+    """
     session = Session()
     try:
         task = session.query(Task).filter(Task.id == task_id).first()

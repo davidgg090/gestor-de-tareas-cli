@@ -33,13 +33,12 @@ def add_task(name, description, due_date=None, priority=None):
             try:
                 due_date_obj = datetime.strptime(due_date, "%Y-%m-%d")
             except ValueError as e:
-                raise ValueError("Invalid date format. Please use YYYY-MM-DD.") from e
+                send_notification("An error occurred", f"Invalid date format. Please use YYYY-MM-DD. {e}")
         if priority:
             try:
                 priority = int(priority)
             except ValueError as exc:
-                raise ValueError("Invalid priority. Must be an integer.") from exc
-        # import ipdb; ipdb.set_trace()
+                send_notification("An error occurred", f"Invalid priority. Must be an integer. {exc}")
         task = Task(
             name=name,
             description=description,
@@ -48,10 +47,9 @@ def add_task(name, description, due_date=None, priority=None):
         )
         session.add(task)
         session.commit()
-        print(f"Task '{task.name}' added with id {task.id}")
         send_notification(f"Task '{task.name}' added with id {task.id}")
     except Exception as e:
-        print(f"An error occurred: {e}")
+        send_notification(f"An error occurred: {e}")
     finally:
         session.close()
 
