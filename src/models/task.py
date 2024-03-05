@@ -1,7 +1,8 @@
-from sqlalchemy import Column, Integer, String, Date, Enum
+from sqlalchemy import Column, Integer, String, Date
 from sqlalchemy.orm import validates
-
-from app.db.config import Base, engine
+from sqlalchemy.types import Enum as SQLAlchemyEnum
+from enum import Enum
+from src.db.config import Base, engine
 
 
 class TaskStatus(Enum):
@@ -41,7 +42,7 @@ class Task(Base):
     description = Column(String(1024))
     due_date = Column(Date)
     priority = Column(Integer)
-    status = Column(TaskStatus, nullable=False, default=TaskStatus.PENDING)
+    status = Column(SQLAlchemyEnum(TaskStatus), nullable=False, default=TaskStatus.PENDING)
 
     @validates("status")
     def validate_status(self, attr, value):
